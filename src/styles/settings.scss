@@ -1,5 +1,6 @@
-@import "./_variables.scss";
-@import "./_loading.scss";
+@use "./variables" as *;
+@use "./loading" as *;
+
 
 * {
   font-family: 'Quicksand', 'Noto Sans Lao', sans-serif;
