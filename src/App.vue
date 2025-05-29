@@ -1,12 +1,10 @@
 <template>
   <v-app>
-
       <NavBar />
       <SizeMenu />
       <main class="main-content">
         <router-view />
       </main>
-
   </v-app>
 </template>
 
