@@ -20,7 +20,7 @@
          </div>
 
           <div class="sub-title">
-            <p>Lorem ipsum dolor sit amet, </p>
+            <p>web Hosting Control Panel</p>
           </div>
 
          <div class="text-content">
@@ -32,7 +32,46 @@
 
        </div>
         <div class="login-form">
-          <a href="">im here</a>
+          <div class="title">
+            <h3>Welcome back</h3>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+
+          <div class="input-item">
+            <label for="">User name</label>
+            <input type="text" placeholder="user name" >
+          </div>
+
+          <div class="input-item">
+            <label for="">Password</label>
+            <input type="password" placeholder="password" >
+          </div>
+
+          <div class="item">
+            <div class="remember-me">
+              <input type="checkbox" id="remember"  />
+              <label for="remember">Remember Me</label>
+            </div>
+
+            <div class="forget">
+              <a href="">Forgot password?</a>
+            </div>
+          </div>
+
+          <div class="action">
+            <button class="btn-add" @click="login()">Sign In</button>
+          </div>
+
+          <div class="connect-with" >
+            <p for="">or continue with</p>
+          </div>
+
+          <div class="media">
+            <button class="btn-add google">Google</button>
+            <button class="btn-add microsoft">Microsoft</button>
+          </div>
+
+
         </div>
       </div>
   </div>
@@ -70,13 +109,17 @@
 
       .login-container{
         display: grid;
+        font-size: small;
         grid-template-columns: 1fr 1fr;
-        width: 500px;
+        width: 600px;
         box-shadow: $shadow-heavy;
         height: 550px;
         background: $bg-gradient;
         border-radius: 10px;
+
+        overflow: auto;
         .content{
+          color: white;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -84,6 +127,7 @@
           background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
           animation: float 20s ease-in-out infinite;
           padding: 2rem;
+          min-width: 260px;
           .img-wrapper{
             width: 50px;
             height: 50px;
@@ -92,13 +136,10 @@
             }
           }
 
-          .sub-title{
-            font-size: small;
-          }
+
 
           .text-content{
             margin: 1rem;
-            font-size: small;
            p{
              margin: .5rem 0;
            }
@@ -109,8 +150,106 @@
         .login-form{
           border-radius: 0  10px 10px 0 ;
           background: white;
+          padding: 2rem;
+          color: $text-muted;
+            .title{
+              text-align: center;
+              h3{
+                color: #1e1e1e;
+              }
+            }
+
+          .input-item{
+            margin-top: 1.5rem;
+            input{
+              margin-top: 0.5rem;
+              width: 100%;
+            }
+          }
+
+          .item{
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .remember-me {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 12px;
+              cursor: pointer;
+
+              &input[type="checkbox"]{
+                width: 16px;
+                height: 16px;
+                accent-color: #007bff; /* Customize checkbox color */
+                cursor: pointer;
+              }
+              label {
+                cursor: pointer;
+              }
+
+            }
+
+            .forget{
+             //
+            }
+          }
+
+          .action {
+            button{
+              margin-top: 1.5rem;
+              width: 100%;
+              background: $bg-gradient;
+            }
+          }
+
+          .connect-with{
+            margin-top: 3rem;
+            width: 100%;
+            border-top: 2px solid $border-color;
+            position: relative;
+            p{
+              width: 120px;
+              padding: 0 0.5rem;
+              text-align: center;
+              background: white;
+              position: absolute;
+              top: -12px;
+              left: 25%;
+            }
+          }
+
+          .media{
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            button{
+              width: 100%;
+              background: none;
+              border: 1px solid  $border-color;
+            }
+
+            .google{
+              color: $danger-color;
+            }
+
+            .microsoft{
+              color: $secondary-color;
+            }
+          }
         }
       }
+
+      @media(max-width: 768px) {
+        .login-container{
+          grid-template-columns: 1fr;
+
+        }
+      }
+
     }
 
 
