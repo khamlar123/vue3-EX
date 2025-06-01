@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import {onMounted, onUnmounted} from "vue";
 import {useAppStore} from "@/stores/app.ts";
-
 const store = useAppStore();
 
 onMounted(() => {
@@ -14,13 +13,6 @@ onUnmounted(() => {
   window.removeEventListener('resize', handleResize)
   document.removeEventListener('click', handleClickOutside)
 })
-
-const handleMenuItemClick = (itemId: string) => {
-  store.activeMenuItem = itemId
-  if (store.isMobile) {
-    store.sidebarOpen = false
-  }
-}
 
 const handleResize = () => {
   store.isMobile = window.innerWidth <= 768
@@ -66,16 +58,28 @@ const handleClickOutside = (e: MouseEvent) => {
         :key="section.title"
       >
         <div class="section-title">{{ section.title }}</div>
-        <div
-          v-for="item in section.items"
-          :key="item.id"
+<!--        <div-->
+<!--          v-for="item in section.items"-->
+<!--          :key="item.id"-->
+<!--          class="menu-item"-->
+<!--          :class="{ active: store.activeMenuItem === item.id }"-->
+<!--          @click="handleMenuItemClick(item)"-->
+
+<!--        >-->
+<!--          <span class="icon">📁</span>-->
+<!--          <span class="text">{{ item.text }}</span>-->
+
+<!--        </div>-->
+
+        <router-link
+          :to="item.url"
+          v-for="item in section.items" :key="item.id"
           class="menu-item"
-          :class="{ active: store.activeMenuItem === item.id }"
-          @click="handleMenuItemClick(item.id)"
+          active-class="active"
         >
-          <span class="icon">📁</span>
-          <span class="text">{{ item.text }}</span>
-        </div>
+            <span class="icon">📁</span>
+            <span class="text">{{ item.text }}</span>
+        </router-link>
       </div>
     </nav>
   </aside>

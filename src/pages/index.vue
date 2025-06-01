@@ -32,14 +32,7 @@ const  store = useAppStore();
   <div class="quick-actions">
     <h2>Quick Actions</h2>
     <div class="actions-grid">
-      <div
-        class="action-item"
-        v-for="action in quickActions"
-        :key="action.id"
-      >
-        <div class="action-icon">{{ action.icon }}</div>
-        <span class="action-text">{{ action.text }}</span>
-      </div>
+      <Table />
     </div>
   </div>
 </template>

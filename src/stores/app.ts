@@ -18,7 +18,7 @@ export interface quickAction {
 
 export interface menuSections {
   title: string;
-  items: { id: string; icon: string; text: string }[]
+  items: { id: string; icon: string; text: string , url: string}[]
 }
 
 export const useAppStore = defineStore('app', {
@@ -38,18 +38,18 @@ export const useAppStore = defineStore('app', {
       {
         title: 'General',
         items: [
-          {id: 'dashboard', icon: 'tachometer-alt', text: 'Dashboard'},
-          {id: 'statistics', icon: 'chart-bar', text: 'Statistics'},
+          {id: 'dashboard', icon: 'tachometer-alt', text: 'Dashboard', url: '/'},
+          {id: 'statistics', icon: 'chart-bar', text: 'User', url: '/user'},
         ],
       },
-      {
-        title: 'Files',
-        items: [
-          {id: 'file-manager', icon: 'folder', text: 'File Manager'},
-          {id: 'upload', icon: 'upload', text: 'Upload Files'},
-          {id: 'backup', icon: 'archive', text: 'Backup'},
-        ],
-      },
+      // {
+      //   title: 'Files',
+      //   items: [
+      //     {id: 'file-manager', icon: 'folder', text: 'File Manager'},
+      //     {id: 'upload', icon: 'upload', text: 'Upload Files'},
+      //     {id: 'backup', icon: 'archive', text: 'Backup'},
+      //   ],
+      // },
     ]),
     stats: ref<stats[]>([
       {
