@@ -1,5 +1,6 @@
 // Utilities
 import {defineStore} from 'pinia'
+import type {IMenu} from "@/interfaces/i-menu.interface.ts";
 
 export interface stats {
   id: string;
@@ -10,46 +11,26 @@ export interface stats {
   gradient: string;
 }
 
-export interface quickAction {
-  id: string;
-  icon: string;
-  text: string,
-}
-
-export interface menuSections {
-  title: string;
-  items: { id: string; icon: string; text: string , url: string}[]
-}
-
 export const useAppStore = defineStore('app', {
   state: () => ({
     sidebarOpen: ref(false),
     activeMenuItem: ref('dashboard'),
     isMobile: ref(false),
-    quickActions: ref<quickAction[]>([
-      {id: 'create-folder', icon: 'folder-plus', text: 'Create New Folder'},
-      {id: 'create-database', icon: 'database', text: 'Create Database'},
-      {id: 'add-email', icon: 'envelope-open', text: 'Add Email Account'},
-      {id: 'create-subdomain', icon: 'globe', text: 'Create Subdomain'},
-      {id: 'install-ssl', icon: 'shield-alt', text: 'Install SSL Certificate'},
-      {id: 'backup-files', icon: 'download', text: 'Backup Files'},
-    ]),
-    menuSections: ref<menuSections[]>([
+    menuSections: ref<IMenu[]>([
       {
         title: 'General',
         items: [
-          {id: 'dashboard', icon: 'tachometer-alt', text: 'Dashboard', url: '/'},
-          {id: 'statistics', icon: 'chart-bar', text: 'User', url: '/user'},
+          {id: 'dashboard', icon: 'dashboard', text: 'Dashboard', url: '/'},
+          {id: 'user', icon: 'person', text: 'User', url: '/user'},
+
         ],
       },
-      // {
-      //   title: 'Files',
-      //   items: [
-      //     {id: 'file-manager', icon: 'folder', text: 'File Manager'},
-      //     {id: 'upload', icon: 'upload', text: 'Upload Files'},
-      //     {id: 'backup', icon: 'archive', text: 'Backup'},
-      //   ],
-      // },
+      {
+        title: 'Setting',
+        items: [
+          {id: 'setting', icon: 'settings', text: 'Setting', url: '/setting'},
+        ],
+      },
     ]),
     stats: ref<stats[]>([
       {

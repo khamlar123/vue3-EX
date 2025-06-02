@@ -1,4 +1,4 @@
-
+@use "./variables" as *;
 .cpanel-app {
   min-height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -153,13 +153,38 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  padding: 5px 10px;
+  padding:  10px;
   border-radius: 25px;
   transition: background-color 0.3s;
+  position: relative;
+
+  &:hover .sub-menu {
+    bottom: -60px;
+    height: 100%;
+    padding: 1rem;
+  }
+.sub-menu{
+  position: absolute;
+  //bottom: 100%;
+  bottom: -50px;
+  left: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .3s ease;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+ a{
+   color: white;
+   text-decoration: none;
+ }
+}
 }
 
 .user-profile:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+//s  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .avatar {

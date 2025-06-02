@@ -1,10 +1,14 @@
 <script setup lang="ts">
 import {useAppStore} from "@/stores/app.ts";
-
+const  route = useRoute();
 const store = useAppStore();
-
+const url = computed(() => route.path.split('/').splice(1) )
 const toggleSidebar = () => {
   store.sidebarOpen = !store.sidebarOpen
+}
+
+const logout = () => {
+  localStorage.removeItem('authToken')
 }
 
 </script>
@@ -18,12 +22,13 @@ const toggleSidebar = () => {
         <span>cPanel</span>
       </div>
       <div class="breadcrumb">
-        <span>Home</span> / <span>Dashboard</span>
+        <span >Dashboard</span>
+        <span v-for="item in url" :key="item">{{ item? " / "+ item: "" }} </span>
       </div>
     </div>
     <div class="header__right">
       <div class="search-box">
-        <input type="text" placeholder="Search for tools, features..."/>
+        <input placeholder="Search for tools, features..." type="text"/>
         <span class="search-icon">🔍</span>
       </div>
       <div class="user-menu">
@@ -35,6 +40,9 @@ const toggleSidebar = () => {
           <div class="user-info">
             <div class="username">John Doe</div>
             <div class="role">Administrator</div>
+            <div class="sub-menu">
+              <router-link to="/auth/login" @click="logout()">Logout</router-link>
+            </div>
           </div>
           ▼
         </div>

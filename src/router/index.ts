@@ -35,8 +35,6 @@ router.isReady().then(() => {
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('authToken')
-  console.log('to.path', to.path);
-  console.log('token', token)
   if (token) {
     if (to.path === '/auth/login/') {
       next('/')

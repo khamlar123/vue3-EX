@@ -45,17 +45,17 @@ const handleClickOutside = (e: MouseEvent) => {
         open: store.isMobile && store.sidebarOpen,
       }"
   >
-    <div class="sidebar__header">
-      <div class="domain-info">
-        <div class="domain">example.com</div>
-        <div class="plan">Premium Plan</div>
-      </div>
-    </div>
+<!--    <div class="sidebar__header">-->
+<!--      <div class="domain-info">-->
+<!--        <div class="domain">example.com</div>-->
+<!--        <div class="plan">Premium Plan</div>-->
+<!--      </div>-->
+<!--    </div>-->
     <nav class="sidebar__menu">
       <div
-        class="menu-section"
         v-for="section in store.menuSections"
         :key="section.title"
+        class="menu-section"
       >
         <div class="section-title">{{ section.title }}</div>
 <!--        <div-->
@@ -72,12 +72,12 @@ const handleClickOutside = (e: MouseEvent) => {
 <!--        </div>-->
 
         <router-link
-          :to="item.url"
-          v-for="item in section.items" :key="item.id"
+          v-for="item in section.items"
+          :key="item.id" active-class="active"
           class="menu-item"
-          active-class="active"
+          :to="item.url"
         >
-            <span class="icon">📁</span>
+            <span class="material-symbols-outlined icon">{{item.icon}}</span>
             <span class="text">{{ item.text }}</span>
         </router-link>
       </div>

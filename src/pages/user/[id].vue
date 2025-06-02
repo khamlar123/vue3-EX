@@ -3,7 +3,8 @@ const  route = useRoute();
 </script>
 
 <template>
-  <div>{{route.params.id}}</div>
+  <h1>User Detail {{route.params.id}}</h1>
+
 </template>
 
 <style scoped lang="sass">

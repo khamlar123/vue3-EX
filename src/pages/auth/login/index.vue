@@ -12,7 +12,7 @@
       <div class="login-container">
        <div class="content">
           <div class="img-wrapper">
-            <img src="@/assets/logo.png" alt="img">
+            <img alt="img" src="@/assets/logo.png">
           </div>
 
          <div class="title">
@@ -39,22 +39,22 @@
 
           <div class="input-item">
             <label for="">User name</label>
-            <input type="text" placeholder="user name" >
+            <input placeholder="user name" type="text" >
           </div>
 
           <div class="input-item">
             <label for="">Password</label>
-            <input type="password" placeholder="password" >
+            <input placeholder="password" type="password" >
           </div>
 
           <div class="item">
             <div class="remember-me">
-              <input type="checkbox" id="remember"  />
+              <input id="remember" type="checkbox"  />
               <label for="remember">Remember Me</label>
             </div>
 
             <div class="forget">
-              <a href="">Forgot password?</a>
+              <a href="javascript:void(0)">Forgot password?</a>
             </div>
           </div>
 
