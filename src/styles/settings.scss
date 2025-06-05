@@ -157,13 +157,13 @@ table {
 
   tbody {
     tr {
-      &:nth-child(odd) {
-        background-color: $dark-light;
-      }
-
-      &:nth-child(even) {
-        background-color: $white;
-      }
+      //&:nth-child(odd) {
+      //  background-color: $dark-light;
+      //}
+      //
+      //&:nth-child(even) {
+      //  background-color: $white;
+      //}
 
       td {
         padding: 0.5rem 5px;
@@ -183,41 +183,3 @@ table {
   }
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
-  color: $gray;
-
-  .btn-prev,
-  .btn-next {
-    border: none;
-    background: none;
-    color: $gray;
-    cursor: pointer;
-
-    &:checked {
-      border: 1px solid $blue;
-    }
-  }
-
-  .pages {
-    gap: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .active {
-      border: 2px solid $blue-light;
-      padding: 0.2rem .4rem;
-      border-radius: 6px;
-    }
-
-    a {
-      text-decoration: none;
-      color: $gray;
-    }
-  }
-
-}

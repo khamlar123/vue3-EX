@@ -1,5 +1,6 @@
 import type {IHeader} from "@/interfaces/i-headers.interface.ts";
 import type {IUser} from "@/interfaces/i-user.interface.ts";
+import Swal from "sweetalert2";
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -181,5 +182,54 @@ export const useUserStore = defineStore('user', {
         }
       ]
     )
-  })
+  }),
+  actions: {
+    async add(model: IUser, router: any) {
+      this.userList.unshift(model);
+      Swal.fire({
+        title: 'Add user success',
+        icon: "success",
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 2000,
+        confirmButtonText: "Close",
+      });
+      router.push('/user')
+    },
+
+    async update(id: number, router: any) {
+      console.log('id', id);
+      Swal.fire({
+        title: 'Update success',
+        icon: "success",
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 2000,
+        confirmButtonText: "Close",
+      });
+      router.push('/user')
+    },
+
+    async deleteItem(id: number) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Won Delete item",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#ff5574",
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.userList =  this.userList.filter(f => f.id !== id);
+        }else {
+          console.log('cancel')
+        }
+      });
+
+    }
+
+
+
+  }
 })

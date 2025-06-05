@@ -28,7 +28,7 @@ export const useAppStore = defineStore('app', {
       {
         title: 'Setting',
         items: [
-          {id: 'setting', icon: 'settings', text: 'Setting', url: '/setting'},
+          {id: 'role', icon: 'add_moderator', text: 'role', url: '/role'},
         ],
       },
     ]),

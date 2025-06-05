@@ -8,7 +8,7 @@ const headers = ref<IHeader[]>(
   [
     { title: 'id', key: 'id', align: 'start' },
     { title: 'name', key: 'name', align: 'start' },
-    {title: 'active', key: 'active',  align: 'start' }
+    { title: 'active', key: 'active',  align: 'center' }
   ]
 );
 
@@ -16,7 +16,7 @@ const data = ref([
   {
     "id": 1,
     "name": "Alice Smith",
-    "active": true,
+    "active": false,
   },
   {
     "id": 2,
@@ -102,7 +102,7 @@ const  view = (event) => {
   <div class="quick-actions">
     <h2>Quick Actions</h2>
     <div class="actions-grid">
-      <Table :headers="headers" :option="showButton" :tableData="data" @view="view" />
+      <Table :headers="headers" :option="showButton" :table-data="data" @view="view" />
     </div>
   </div>
 </template>

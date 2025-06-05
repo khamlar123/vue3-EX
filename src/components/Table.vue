@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const emit = defineEmits(['edit','view', 'delete']);
+const emit = defineEmits(['view', 'delete']);
 const props = defineProps({
   headers:  {
     type: Object,
@@ -22,37 +22,26 @@ const props = defineProps({
     emit('view', id);
   }
 
-const edit = (id: number) => {
-  emit('edit', id);
-}
-
 const deleteAc = (id: number) => {
   emit('delete', id);
 }
 
 
-
-
 </script>
 
 <template>
-
-  {{result}}
   <v-data-table
     class="custom-table"
     :headers="props.headers"
     :items="props.tableData"
   >
-    <template #item.action="{ item }" v-if="props.option">
-      <div class="d-flex ga-1">
-        <v-btn
-          icon="mdi-pencil"
-          size="small"
-          color="primary"
-          variant="text"
-          @click="edit(item.id)"
-        ></v-btn>
 
+    <template #item.active="{ item }">
+      {{ item.active ? 'Active' : 'Inactive' }}
+    </template>
+
+    <template v-if="props.option" #item.action="{ item }">
+      <div class="d-flex ga-1">
         <v-btn
           color="info"
           icon="mdi-eye"
@@ -62,9 +51,9 @@ const deleteAc = (id: number) => {
         ></v-btn>
 
         <v-btn
+          color="error"
           icon="mdi-delete"
           size="small"
-          color="error"
           variant="text"
           @click="deleteAc(item.id)"
         ></v-btn>
