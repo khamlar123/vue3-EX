@@ -1,35 +1,55 @@
-import type {IHeader} from "@/interfaces/i-headers.interface.ts";
 import type {IUser} from "@/interfaces/i-user.interface.ts";
-import Swal from "sweetalert2";
+import axios from "axios";
+import Alert from "@/components/Alert.ts";
+import type {IRole} from "@/interfaces/i-role.interface.ts";
+
+export interface iModel  {
+  userName : string;
+  password:string;
+  avatar: string;
+  fullName: string;
+  role: string;
+  isActive: boolean;
+}
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    headers: ref<IHeader[]>(
+    headers: ref(
       [
         {
           title: "id",
-          key: "id",
+          key: "uid",
           align: "start",
         },
         {
-          title: "name",
-          key: "name",
+          title: "user name",
+          key: "userName",
           align: "start",
         },
         {
-          title: "email",
-          key: "email",
+          title: "display name",
+          key: "fullName",
           align: "start",
         },
         {
-          title: "phone",
-          key: "phone",
+          title: "avatar",
+          key: "avatar",
           align: "start",
         },
         {
           title: "role",
-          key: "role",
+          key: "role.name",
           align: "end",
+        },
+        {
+          title: "status",
+          key: "isActive",
+          align: "end",
+        },
+        {
+          title: "create",
+          key: "createdAt",
+          align: "start",
         },
         {
           title: "action",
@@ -37,199 +57,127 @@ export const useUserStore = defineStore('user', {
           align: "start",
         },
 
+
         ]),
-    userList: ref<IUser[]>(
-      [
-        {
-          "id": 1,
-          "name": "Alice Smith",
-          "email": "alice@example.com",
-          "phone": "555-1234",
-          "role": "admin"
-        },
-        {
-          "id": 2,
-          "name": "Bob Johnson",
-          "email": "bob@example.com",
-          "phone": "555-2345",
-          "role": "user"
-        },
-        {
-          "id": 3,
-          "name": "Charlie Brown",
-          "email": "charlie@example.com",
-          "phone": "555-3456",
-          "role": "user"
-        },
-        {
-          "id": 4,
-          "name": "Diana Prince",
-          "email": "diana@example.com",
-          "phone": "555-4567",
-          "role": "manager"
-        },
-        {
-          "id": 5,
-          "name": "Evan Stone",
-          "email": "evan@example.com",
-          "phone": "555-5678",
-          "role": "user"
-        },
-        {
-          "id": 6,
-          "name": "Fiona Miles",
-          "email": "fiona@example.com",
-          "phone": "555-6789",
-          "role": "admin"
-        },
-        {
-          "id": 7,
-          "name": "George Young",
-          "email": "george@example.com",
-          "phone": "555-7890",
-          "role": "user"
-        },
-        {
-          "id": 8,
-          "name": "Hannah Lee",
-          "email": "hannah@example.com",
-          "phone": "555-8901",
-          "role": "user"
-        },
-        {
-          "id": 9,
-          "name": "Isaac Newton",
-          "email": "isaac@example.com",
-          "phone": "555-9012",
-          "role": "manager"
-        },
-        {
-          "id": 10,
-          "name": "Jane Doe",
-          "email": "jane@example.com",
-          "phone": "555-0123",
-          "role": "user"
-        },
-        {
-          "id": 11,
-          "name": "Alice Smith",
-          "email": "alice@example.com",
-          "phone": "555-1234",
-          "role": "admin"
-        },
-        {
-          "id": 12,
-          "name": "Bob Johnson",
-          "email": "bob@example.com",
-          "phone": "555-2345",
-          "role": "user"
-        },
-        {
-          "id": 13,
-          "name": "Charlie Brown",
-          "email": "charlie@example.com",
-          "phone": "555-3456",
-          "role": "user"
-        },
-        {
-          "id": 14,
-          "name": "Diana Prince",
-          "email": "diana@example.com",
-          "phone": "555-4567",
-          "role": "manager"
-        },
-        {
-          "id": 15,
-          "name": "Evan Stone",
-          "email": "evan@example.com",
-          "phone": "555-5678",
-          "role": "user"
-        },
-        {
-          "id": 16,
-          "name": "Fiona Miles",
-          "email": "fiona@example.com",
-          "phone": "555-6789",
-          "role": "admin"
-        },
-        {
-          "id": 17,
-          "name": "George Young",
-          "email": "george@example.com",
-          "phone": "555-7890",
-          "role": "user"
-        },
-        {
-          "id": 18,
-          "name": "Hannah Lee",
-          "email": "hannah@example.com",
-          "phone": "555-8901",
-          "role": "user"
-        },
-        {
-          "id": 19,
-          "name": "Isaac Newton",
-          "email": "isaac@example.com",
-          "phone": "555-9012",
-          "role": "manager"
-        },
-        {
-          "id": 20,
-          "name": "Jane Doe",
-          "email": "jane@example.com",
-          "phone": "555-0123",
-          "role": "user"
-        }
-      ]
-    )
+    userList: ref<IUser[]>([]),
+    isLoading: ref<boolean>(false),
+    roleList: ref<IRole[]>([]),
+    selectUser: ref<IUser>(),
   }),
+
   actions: {
-    async add(model: IUser, router: any) {
-      this.userList.unshift(model);
-      Swal.fire({
-        title: 'Add user success',
-        icon: "success",
-        showCancelButton: false,
-        showConfirmButton: false,
-        timer: 2000,
-        confirmButtonText: "Close",
-      });
-      router.push('/user')
+
+    getUrl() {
+      return import.meta.env.VITE_API_URL + ":" + import.meta.env.VITE_PORT;
     },
 
-    async update(id: number, router: any) {
-      console.log('id', id);
-      Swal.fire({
-        title: 'Update success',
-        icon: "success",
-        showCancelButton: false,
-        showConfirmButton: false,
-        timer: 2000,
-        confirmButtonText: "Close",
-      });
-      router.push('/user')
+    async getUser() {
+      try {
+        const response = await axios.get(
+          this.getUrl() + `/user`
+        );
+        if (!response.data) return;
+        this.isLoading = false;
+
+        this.userList = response.data;
+
+      } catch (err) {
+
+        console.log('model2', err);
+        Alert.error(err as string);
+        this.isLoading = true;
+      }
     },
 
-    async deleteItem(id: number) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "Won Delete item",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#ff5574",
-        confirmButtonText: "Yes",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.userList =  this.userList.filter(f => f.id !== id);
-        }else {
-          console.log('cancel')
-        }
-      });
+    async getRole() {
+      try {
+        const response = await axios.get(
+          this.getUrl() + `/role`
+        );
+        if (!response.data) return;
+        this.isLoading = false;
 
-    }
+        this.roleList = response.data;
+
+      } catch (err) {
+
+        console.log('model2', err);
+        Alert.error(err as string);
+        this.isLoading = true;
+      }
+    },
+
+    async getOne(id: string) {
+      try {
+        const response = await axios.get(
+          this.getUrl() + `/user/${id}`
+        );
+        if (!response.data) return;
+        this.isLoading = false;
+        this.selectUser = response.data;
+      } catch (err) {
+        console.log('model2', err);
+        Alert.error(err as string);
+        this.isLoading = true;
+      }
+    },
+
+    async createUser(model: any, router: any) {
+      this.isLoading = true;
+      try {
+        const response = await axios.post(
+          this.getUrl() + `/user`,
+          {
+            "userName": model.userName,
+            "password": model.password,
+            "avatar": model.avatar,
+            "fullName": model.fullName,
+            "role": model.role,
+          }
+        );
+        if (!response.data) return;
+        this.isLoading = false;
+       // this.roleList = response.data;
+        router.push('/user')
+      } catch (err) {
+        Alert.error(err as string);
+        this.isLoading = true;
+      }
+    },
+
+    async delete(id: any) {
+      try {
+        const response = await axios.delete(
+          this.getUrl() + `/user/${id}`
+        );
+        if (!response.data) return;
+        this.isLoading = false;
+        Alert.success('delete done !')
+        this.userList = this.userList.filter(user => user._id !== id);
+      } catch (err) {
+        Alert.error(err as string);
+        this.isLoading = true;
+      }
+    },
 
 
+
+    async update(id: string, userModel: iModel, router: any) {
+      try {
+        const response = await axios.patch<iModel>(
+          this.getUrl() + `/user/${id}`,
+          userModel
+        );
+        if (!response.data) return;
+        this.isLoading = false;
+        Alert.success('update done !')
+        router.push('/user')
+
+      } catch (err) {
+        Alert.error(err as string);
+        this.isLoading = true;
+      }
+    },
 
   }
 })

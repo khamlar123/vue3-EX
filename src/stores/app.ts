@@ -21,14 +21,15 @@ export const useAppStore = defineStore('app', {
         title: 'General',
         items: [
           {id: 'dashboard', icon: 'dashboard', text: 'Dashboard', url: '/'},
-          {id: 'user', icon: 'person', text: 'User', url: '/user'},
+
 
         ],
       },
       {
         title: 'Setting',
         items: [
-          {id: 'role', icon: 'add_moderator', text: 'role', url: '/role'},
+          {id: 'user', icon: 'person', text: 'User', url: '/user'},
+          {id: 'roles', icon: 'add_moderator', text: 'roles', url: '/roles'},
         ],
       },
     ]),

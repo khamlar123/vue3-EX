@@ -3,7 +3,11 @@ import {useAppStore} from "@/stores/app.ts";
 import type {IHeader} from "@/interfaces/i-headers.interface.ts";
 
 const  store = useAppStore();
-const showButton = ref<boolean>(false);
+const showButton = ref({
+  view: true,
+  delete: true,
+  edit: true,
+});
 const headers = ref<IHeader[]>(
   [
     { title: 'id', key: 'id', align: 'start' },
@@ -65,12 +69,9 @@ const data = ref([
   }
 ]);
 
-const  view = (event) => {
-  console.log('event',event)
+const view = (event) => {
+  console.log('event', event)
 }
-
-
-
 
 </script>
 <template>

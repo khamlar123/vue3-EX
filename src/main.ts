@@ -6,7 +6,7 @@
 
 // Plugins
 import { registerPlugins } from '@/plugins'
-
+import { VueSpinnersPlugin } from 'vue3-spinners';
 // Components
 import App from './App.vue'
 
@@ -17,6 +17,7 @@ import { createApp } from 'vue'
 import 'unfonts.css'
 
 const app = createApp(App)
+app.use(VueSpinnersPlugin);
 
 registerPlugins(app)
 

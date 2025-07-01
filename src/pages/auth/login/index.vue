@@ -1,8 +1,21 @@
 <script setup lang="ts">
+import {useAuthStore} from "@/stores/auth.ts";
+
+  const store = useAuthStore()
   const router = useRouter()
+  const loginModel = ref({
+    userName: '',
+    password: '',
+  });
   const login = () => {
-    localStorage.setItem('authToken', 'abcd');
-    router.push('/') // Navigate after login
+
+    // router.push('/') // Navigate after login
+    const model = {
+      user: loginModel.value.userName,
+      password: loginModel.value.password,
+    }
+    store.login(model, router)
+
 }
 
 </script>
@@ -39,12 +52,12 @@
 
           <div class="input-item">
             <label for="">User name</label>
-            <input placeholder="user name" type="text" >
+            <input placeholder="user name" type="text" v-model="loginModel.userName" >
           </div>
 
           <div class="input-item">
             <label for="">Password</label>
-            <input placeholder="password" type="password" >
+            <input placeholder="password" type="password" v-model="loginModel.password" >
           </div>
 
           <div class="item">
@@ -59,7 +72,7 @@
           </div>
 
           <div class="action">
-            <button class="btn-add" @click="login()">Sign In</button>
+            <button class="btn-add" @click="login">Sign In</button>
           </div>
 
           <div class="connect-with" >

@@ -8,6 +8,14 @@
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import { setupLayouts } from 'virtual:generated-layouts'
 import { routes } from 'vue-router/auto-routes'
+import { jwtDecode } from 'jwt-decode'
+
+type JwtPayload = {
+  _id: string
+  user: string
+  exp: number
+  iat: number
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,13 +42,22 @@ router.isReady().then(() => {
 })
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('authToken')
+  const token = localStorage.getItem('authToken');
+
   if (token) {
-    if (to.path === '/auth/login/') {
-      next('/')
+    const decoded = jwtDecode<JwtPayload>(token);
+    const isExpired = decoded.exp * 1000 < Date.now();
+    if (isExpired) {
+      localStorage.removeItem('authToken');
+      next('/auth/login');
     } else {
-      next()
+      if (to.path === '/auth/login/') {
+        next('/')
+      } else {
+        next()
+      }
     }
+
   } else {
     if (to.path !== '/auth/login') {
       next('/auth/login')

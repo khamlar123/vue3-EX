@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const emit = defineEmits(['view', 'delete']);
+import { format } from 'date-fns'
+const emit = defineEmits(['view', 'delete', 'edit']);
+
 const props = defineProps({
   headers:  {
     type: Object,
@@ -12,8 +14,8 @@ const props = defineProps({
     default: null // Default to null if not provided
   },
   option: {
-    type: Boolean,
-    default: false,
+    type: Object,
+    default: null,
   }
 
 });
@@ -22,10 +24,18 @@ const props = defineProps({
     emit('view', id);
   }
 
-const deleteAc = (id: number) => {
+const deleteAc = (id: string) => {
   emit('delete', id);
 }
 
+const update = (id: string) => {
+  emit('edit', id);
+}
+
+function formatDate(dateStr: string) {
+  const date = new Date(dateStr)
+  return format(date, 'dd-MM-yyyy') // e.g., "2025-06-30"
+}
 
 </script>
 
@@ -36,13 +46,17 @@ const deleteAc = (id: number) => {
     :items="props.tableData"
   >
 
-    <template #item.active="{ item }">
-      {{ item.active ? 'Active' : 'Inactive' }}
+    <template #item.isActive="{ item }">
+      {{ item.isActive ? 'Active' : 'Inactive' }}
     </template>
 
-    <template v-if="props.option" #item.action="{ item }">
-      <div class="d-flex ga-1">
-        <v-btn
+    <template #item.createdAt="{ item }">
+      {{ formatDate( item.createdAt )  }}
+    </template>
+
+    <template #item.action="{ item }">
+      <div class="d-flex ga-1 flex justify-end ">
+        <v-btn v-if="props.option.view === true"
           color="info"
           icon="mdi-eye"
           size="small"
@@ -50,7 +64,15 @@ const deleteAc = (id: number) => {
           @click="view(item.id)"
         ></v-btn>
 
-        <v-btn
+        <v-btn v-if="props.option.edit === true"
+               color="error"
+               icon="mdi-pencil"
+               size="small"
+               variant="text"
+               @click="update(item.id)"
+        ></v-btn>
+
+        <v-btn v-if="props.option.delete === true"
           color="error"
           icon="mdi-delete"
           size="small"
@@ -101,6 +123,7 @@ background: white !important;
 
 
 </style>
+
 
 
 

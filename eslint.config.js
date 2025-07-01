@@ -20,6 +20,7 @@ export default [
   ...vuetifyConfig,
   {
     rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
       "vue/match-component-import-name": "warn",
       "vue/match-component-file-name": [
         "error",
@@ -50,6 +51,7 @@ export default [
         },
       ],
       "vue/require-default-prop": "off",
+
     },
   },
   eslintConfigPrettier

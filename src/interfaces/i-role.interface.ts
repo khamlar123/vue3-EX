@@ -1,12 +1,12 @@
 export interface IRole {
-  id: number;
-  name: string;
-  permissions: {
-    id: number,
-    name: string;
-    permission: {
-      name: string,
-      value: boolean,
-    }[]
-  }[]
+  "_id": string;
+  "uid": string;
+  "name": string;
+  "avatar": string;
+  "isActive": true;
+  "permission": string[];
+  "createdAt": string;
+  "updatedAt": string;
+  "__v": number;
+  "id": string;
 }

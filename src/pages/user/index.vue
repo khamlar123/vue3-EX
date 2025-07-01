@@ -1,19 +1,32 @@
 <script setup lang="ts">
   import {useUserStore} from "@/stores/user.ts";
+  import {useRouter} from "vue-router";
   const store = useUserStore();
   const routes = useRouter();
+  const router = useRouter()
+  const showButton = ref({
+    view: false,
+    delete: true,
+    edit: true,
+  });
 
   const  view = (event: MouseEvent) =>{
     routes.push(`/user/${event}`)
   }
 
-  const  deleteAction = (event: MouseEvent) => {
-    store.deleteItem(Number(event))
+  store.getUser();
+
+  const deleteAction = (event: MouseEvent) => {
+    console.log('delete',event);
+    store.delete(event);
+
   }
 
-  const  add = () => {
-    routes.push(`/user/0`)
+  const edit = (event: MouseEvent) => {
+    console.log('edit', event);
+    router.push({ path: '/user/'+event });
   }
+
 
 </script>
 
@@ -27,10 +40,10 @@
 
     <div class="action">
       <h2>User List</h2>
-     <router-link to="/user/0"> <button class="btn-add" >+</button></router-link>
+     <router-link to="/user/null"> <button class="btn-add" >+</button></router-link>
     </div>
     <div class="actions-grid">
-      <Table :headers="store.headers" :option="true" :table-data="store.userList" @delete="deleteAction" @view="view" />
+      <Table :headers="store.headers" :option="showButton" :table-data="store.userList" @delete="deleteAction" @edit="edit" @view="view" />
     </div>
   </div>
 
